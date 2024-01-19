@@ -29,8 +29,8 @@ app.get('/api/hello', function(req, res) {
 app.post('/api/shorturl', function(req, res) {
    let shortUrl = generateShortUrl();
    console.log(isUrlValid(req.body.url), req.body.url)
-   if (!isUrlValid(req.body.url)) {
-    return res.status().json({ error: 'Invalid URL' });
+   if (!req.body.url || !validUrl.isWebUri(req.body.url)) {
+    return res.json({ error: 'invalid url' });
   }
    shortUrls[shortUrl] = req.body.url;
    console.log(shortUrls)
